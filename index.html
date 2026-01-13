@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projektraum: Febana GmbH - Delve Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        delve: {
+                            DEFAULT: '#1c4d3b', // Hauptfarbe (Dunkelgrün)
+                            light: '#afc5b8',   // Akzentfarbe (Salbei)
+                            gray: '#808181'     // Textgrau
+                        }
+                    },
+                    fontFamily: {
+                        // Priorisiert Avenir, falls installiert, sonst System-Standards
+                        sans: ['Avenir', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Endlos laufendes Logo-Marquee */
+        .marquee-container { overflow: hidden; white-space: nowrap; position: relative; }
+        .marquee-content { display: inline-block; animation: marquee 40s linear infinite; }
+        .marquee-container:hover .marquee-content { animation-play-state: paused; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        /* Pulsierender Effekt für den aktiven Status */
+        .pulse-active {
+            box-shadow: 0 0 0 0 rgba(28, 77, 59, 0.7);
+            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+        @keyframes pulse-ring {
+            to { box-shadow: 0 0 0 15px rgba(28, 77, 59, 0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-delve-gray antialiased leading-relaxed">
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="font-bold text-xl text-delve tracking-tight flex items-center">
+                <i class="fa-solid fa-mountain me-2"></i> <span id="company-name-header">Delve Search</span>
+            </div>
+            <div class="text-sm font-medium text-delve-gray hidden md:block">
+                Projektraum: <span id="client-name-header" class="text-delve font-semibold">Febana GmbH</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-12 md:py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4">
+                <h1 id="hero-title" class="text-3xl md:text-4xl font-bold text-delve mb-12 leading-tight">
+                    </h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                    <div class="bg-delve-light/20 rounded-2xl overflow-hidden aspect-video shadow-sm relative group">
+                        <div id="video-container" class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center p-6 text-delve">
+                                <i class="fa-solid fa-film text-5xl mb-4 opacity-50"></i>
+                                <p class="font-semibold">Persönliches Video-Update folgt.</p>
+                                <p class="text-sm mt-2">Wir zeichnen gerade die Zusammenfassung für Sie auf.</p>
+                            </div>
+                        </div>
+                        <iframe id="youtube-iframe" class="hidden w-full h-full" src="" title="Video Update" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="flex flex-col justify-center h-full">
+                        <div class="inline-block bg-delve/10 text-delve text-sm font-bold px-3 py-1 rounded-full mb-4">
+                            <i class="fa-solid fa-circle-info me-2"></i>Aktueller Stand
+                        </div>
+                        <h2 id="status-headline" class="text-2xl font-bold text-delve mb-4">
+                            </h2>
+                        <p id="status-text" class="text-lg mb-8 text-delve-gray">
+                            </p>
+                        <a id="main-cta-button" href="#" target="_blank" class="bg-delve text-white hover:bg-delve/90 transition-all duration-300 font-bold text-lg px-8 py-4 rounded-lg text-center shadow-md hover:shadow-lg inline-flex items-center justify-center">
+                            <i class="fa-solid fa-arrow-right ms-3"></i>
+                        </a>
+                        <p class="text-sm text-center md:text-left text-delve-gray mt-3">
+                            <i class="fa-regular fa-clock me-1"></i> Nächster logischer Schritt im Prozess.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-delve-light/10 border-y border-delve-light/20" id="timeline-section">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl font-bold text-delve mb-2">Unser gemeinsamer Fahrplan</h2>
+                    <p class="text-delve-gray">Der Weg zur erfolgreichen Besetzung, transparent dargestellt.</p>
+                </div>
+                
+                <div class="relative">
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 -translate-y-1/2 z-0"></div>
+                    <div class="md:hidden absolute top-0 left-8 w-1 h-full bg-gray-200 -translate-x-1/2 z-0"></div>
+
+                    <div id="timeline-container" class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-4">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white">
+            <div class="max-w-6xl mx-auto px-4">
+                 <div class="text-center mb-12">
+                    <h2 class="text-2xl font-bold text-delve mb-2">Die Projektbeteiligten</h2>
+                    <p class="text-delve-gray">Kurze Wege für eine effiziente Kommunikation.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+                    <div>
+                        <h3 class="text-xl font-bold text-delve mb-6 flex items-center">
+                            <span class="bg-delve text-white w-8 h-8 rounded-full flex items-center justify-center text-sm me-3"><i class="fa-solid fa-user-shield"></i></span>
+                            Ihr Team bei Delve Search
+                        </h3>
+                        <div id="our-team-container" class="space-y-6">
+                            </div>
+                    </div>
+
+                     <div>
+                        <h3 class="text-xl font-bold text-delve mb-6 flex items-center">
+                             <span class="bg-delve-light text-delve w-8 h-8 rounded-full flex items-center justify-center text-sm me-3"><i class="fa-solid fa-building-user"></i></span>
+                             Entscheider bei Febana GmbH
+                        </h3>
+                        <div id="client-team-container" class="space-y-6">
+                             </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="py-16 bg-slate-100 overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 text-center mb-8">
+                <h3 class="text-lg font-bold text-delve mb-2">Erfolgreiche Zusammenarbeit</h3>
+                <p class="text-sm text-delve-gray">Auszug vergangener Projekte mit ähnlichem Anforderungsprofil.</p>
+            </div>
+            
+            <div class="marquee-container py-4 bg-white border-y border-gray-200">
+                <div class="marquee-content">
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-pied-piper"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-aws"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-reacteurope"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-jenkins"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-digital-ocean"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-atlassian"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-pied-piper"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-aws"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-reacteurope"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-jenkins"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-digital-ocean"></i></span>
+                    <span class="mx-8 text-4xl text-gray-300"><i class="fa-brands fa-atlassian"></i></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                 <h2 class="text-2xl font-bold text-delve mb-8">Relevante Dokumente & Links</h2>
+                 <div id="documents-container" class="flex flex-wrap justify-center gap-4">
+                     </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-delve text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <div class="font-bold text-xl mb-4 flex items-center">
+                    <i class="fa-solid fa-mountain me-2"></i> Delve Search
+                </div>
+                <p class="text-delve-light text-sm">
+                    Spezialisiert auf die Vermittlung von festangestelltem Personal.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Kontakt</h4>
+                <p class="text-delve-light text-sm mb-2"><i class="fa-solid fa-user me-2"></i>Claas Ole Köhler (Vertriebsleitung)</p>
+                <p class="text-delve-light text-sm mb-2"><i class="fa-solid fa-envelope me-2"></i>kontakt@delve-search.de</p>
+                <p class="text-delve-light text-sm"><i class="fa-solid fa-phone me-2"></i>+49 123 456789</p>
+            </div>
+            <div>
+                 <h4 class="font-bold mb-4">Rechtliches</h4>
+                 <ul class="text-delve-light text-sm space-y-2">
+                    <li><a href="#" class="hover:text-white transition">Impressum</a></li>
+                    <li><a href="#" class="hover:text-white transition">Datenschutz</a></li>
+                 </ul>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto px-4 mt-8 pt-8 border-t border-delve-light/20 text-center text-sm text-delve-light">
+            &copy; <span id="current-year"></span> Delve Search GmbH & Delve Recruitment Ltd. Alle Rechte vorbehalten.
+        </div>
+    </footer>
+
+
+    <script>
+        // --- KONFIGURATION & DATEN ---
+        // Ändere die Werte hier, um die gesamte Seite zu aktualisieren.
+        const pageData = {
+            company: {
+                name: "Delve Search",
+                website: "https://www.delve-search.de" // Platzhalter
+            },
+            client: {
+                name: "Febana GmbH",
+                position: "Offene Vakanzen" // Generischer Titel, da keine spezifische genannt wurde
+            },
+            hero: {
+                title: "Recruiting-Statusbericht für Febana GmbH",
+                // WICHTIG: Hier die YouTube ID eintragen (z.B. "dQw4w9WgXcQ"). Leer lassen für Platzhalter.
+                youtubeId: "", 
+                statusHeadline: "Status: Lösungsvorstellung bei Geschäftsführung",
+                statusText: "Das erste Meeting war erfolgreich. Wir haben Ihre Anforderungen analysiert. Im nächsten Schritt präsentieren wir der Geschäftsführung (Hr. Siegel) unseren maßgeschneiderten Lösungsansatz zur Finalisierung des Rahmenvertrags.",
+                // Hier kannst du einen Calendly Link, einen mailto: Link oder einen Link zum digitalen Angebot einfügen.
+                ctaText: "Termin für Präsentation vereinbaren",
+                ctaLink: "mailto:claas.koehler@delve-search.de?subject=Terminvereinbarung%20Pr%C3%A4sentation%20Febana" 
+            },
+            // Der Status kann sein: 'completed' (grüner Haken), 'active' (pulsierender Kreis), 'pending' (grauer Kreis)
+            timeline: [
+                { 
+                    id: 1, 
+                    title: "Erstgespräch & Analyse", 
+                    status: "completed", 
+                    date: "Erfolgt",
+                    description: "Anforderungsaufnahme mit Hr. Friedrich."
+                },
+                { 
+                    id: 2, 
+                    title: "Strategie & Angebot", 
+                    status: "active", // <-- DAS IST DER AKTUELLE SCHRITT
+                    date: "Aktuell: Präsentation ausstehend", 
+                    description: "Vorstellung des Konzepts bei der Geschäftsführung (Hr. Siegel) und Klärung offener Fragen."
+                },
+                { 
+                    id: 3, 
+                    title: "Vertragsabschluss & Suchstart", 
+                    status: "pending", 
+                    date: "Nächster Schritt",
+                    description: "Unterzeichnung Rahmenvertrag und Beginn Active Sourcing."
+                }
+            ],
+            stakeholders: {
+                ourTeam: [
+                    { 
+                        name: "Claas Ole Köhler", 
+                        role: "Vertriebsleiter", 
+                        // Wir nutzen UI Avatars für generische Bilder basierend auf dem Namen.
+                        // Du kannst hier später echte Bild-URLs (z.B. vom Firmenserver) eintragen.
+                        image: "https://ui-avatars.com/api/?name=Claas+Ole+K%C3%B6hler&background=1c4d3b&color=fff&size=128"
+                        // Optional: LinkedIn Link hinzufügen
+                        // link: "https://linkedin.com/in/..."
+                    }
+                    // Hier könnten weitere eigene Mitarbeiter hinzugefügt werden
+                ],
+                clientTeam: [
+                    { 
+                        name: "Alexander Friedrich", 
+                        role: "Ansprechpartner", 
+                        link: "https://www.linkedin.com/in/alexander-friedrich-5319b9238/", 
+                        image: "https://ui-avatars.com/api/?name=Alexander+Friedrich&background=afc5b8&color=1c4d3b&size=128",
+                        isContact: true // Markiert die Hauptkontaktperson
+                    },
+                    { 
+                        name: "Frank Siegel", 
+                        role: "Geschäftsführer (CEO)", 
+                        link: "https://www.linkedin.com/in/frank-siegel-29a464116/?originalSubdomain=de", 
+                        image: "https://ui-avatars.com/api/?name=Frank+Siegel&background=e5e7eb&color=808181&size=128"
+                    }
+                ]
+            },
+            documents: [
+                 // Platzhalter Dokumente. Wenn du keine hast, einfach das Array leer lassen: []
+                 { name: "Muster-Rahmenvertrag (Vorschau)", link: "#", icon: "fa-file-contract" },
+                 { name: "Unsere AGBs", link: "#", icon: "fa-scale-balanced" }
+            ]
+        };
+
+
+        // --- RENDERING LOGIK (NICHT ÄNDERN, AUSSER DU WEISST WAS DU TUST) ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Fülle Header & Hero Basistexte
+            document.getElementById('company-name-header').textContent = pageData.company.name;
+            document.getElementById('client-name-header').textContent = pageData.client.name;
+            document.getElementById('hero-title').innerHTML = `<span class="text-delve-light font-medium block text-xl mb-2">Exklusiv für ${pageData.client.name}:</span> ${pageData.hero.title}`;
+            document.getElementById('status-headline').textContent = pageData.hero.statusHeadline;
+            document.getElementById('status-text').textContent = pageData.hero.statusText;
+            document.getElementById('main-cta-button').setAttribute('href', pageData.hero.ctaLink);
+            document.getElementById('main-cta-button').innerHTML = `${pageData.hero.ctaText} <i class="fa-solid fa-arrow-right ms-3"></i>`;
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // 2. Video Logik
+            const videoContainer = document.getElementById('video-container');
+            const iframe = document.getElementById('youtube-iframe');
+            if (pageData.hero.youtubeId) {
+                videoContainer.classList.add('hidden');
+                iframe.classList.remove('hidden');
+                iframe.src = `https://www.youtube-nocookie.com/embed/${pageData.hero.youtubeId}?rel=0&modestbranding=1`;
+            } else {
+                // Zeige Platzhalter, wenn keine ID vorhanden
+                videoContainer.classList.remove('hidden');
+                iframe.classList.add('hidden');
+            }
+
+            // 3. Timeline Rendering
+            const timelineContainer = document.getElementById('timeline-container');
+            pageData.timeline.forEach((item, index) => {
+                let statusIcon, statusBg, statusTextClass, pulseEffect = '';
+                
+                if (item.status === 'completed') {
+                    statusBg = 'bg-delve';
+                    statusTextClass = 'text-delve';
+                    statusIcon = '<i class="fa-solid fa-check text-white"></i>';
+                } else if (item.status === 'active') {
+                    statusBg = 'bg-delve';
+                    statusTextClass = 'text-delve font-bold';
+                    statusIcon = '<i class="fa-solid fa-play text-white text-sm"></i>';
+                    pulseEffect = 'pulse-active'; // CSS Klasse für den Puls-Effekt
+                } else {
+                    statusBg = 'bg-gray-200';
+                    statusTextClass = 'text-delve-gray';
+                    statusIcon = `<span class="text-gray-400 text-sm font-bold">${item.id}</span>`;
+                }
+
+                // HTML für ein Timeline-Element
+                const timelineItemHTML = `
+                    <div class="flex md:flex-col items-center md:items-start md:text-center md:w-1/3 relative z-10 group w-full bg-white md:bg-transparent p-4 md:p-0 rounded-lg shadow-sm md:shadow-none border md:border-none border-gray-100">
+                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-full ${statusBg} flex items-center justify-center shadow-sm mb-0 md:mb-4 me-4 md:me-0 shrink-0 transition-all duration-300 ${pulseEffect}">
+                            ${statusIcon}
+                        </div>
+                        <div>
+                            <div class="text-xs uppercase tracking-wider mb-1 ${statusTextClass} font-semibold">${item.date}</div>
+                            <h3 class="text-lg font-bold text-delve mb-1">${item.title}</h3>
+                            ${item.description ? `<p class="text-sm text-delve-gray hidden md:block">${item.description}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+                timelineContainer.innerHTML += timelineItemHTML;
+            });
+
+            // 4. Stakeholder Rendering
+            function renderStakeholders(containerId, teamArray) {
+                const container = document.getElementById(containerId);
+                teamArray.forEach(person => {
+                    const linkStart = person.link ? `<a href="${person.link}" target="_blank" class="group flex items-center p-4 rounded-xl border border-gray-100 hover:border-delve-light/50 hover:shadow-md transition-all bg-white">` : `<div class="flex items-center p-4 rounded-xl border border-gray-100 bg-slate-50">`;
+                    const linkEnd = person.link ? ` <i class="fa-brands fa-linkedin text-delve-light group-hover:text-[#0a66c2] ms-auto transition-colors"></i></a>` : `</div>`;
+                    const contactBadge = person.isContact ? `<span class="bg-delve-light/30 text-delve text-[10px] uppercase font-bold px-2 py-1 rounded-full ms-2">Kontakt</span>` : '';
+                    
+                    const personHTML = `
+                        ${linkStart}
+                            <img src="${person.image}" alt="${person.name}" class="w-14 h-14 rounded-full border-2 border-white shadow-sm me-4 object-cover">
+                            <div>
+                                <h4 class="font-bold text-delve flex items-center">${person.name} ${contactBadge}</h4>
+                                <p class="text-sm text-delve-gray">${person.role}</p>
+                            </div>
+                        ${linkEnd}
+                    `;
+                    container.innerHTML += personHTML;
+                });
+            }
+            renderStakeholders('our-team-container', pageData.stakeholders.ourTeam);
+            renderStakeholders('client-team-container', pageData.stakeholders.clientTeam);
+
+             // 5. Documents Rendering
+             const docsContainer = document.getElementById('documents-container');
+             if(pageData.documents.length === 0) {
+                docsContainer.innerHTML = '<p class="text-delve-gray italic">Aktuell sind keine Dokumente hinterlegt.</p>';
+             } else {
+                 pageData.documents.forEach(doc => {
+                     const docHTML = `
+                        <a href="${doc.link}" class="flex items-center bg-delve-light/10 text-delve font-semibold px-6 py-3 rounded-lg hover:bg-delve hover:text-white transition-all duration-300 group">
+                            <i class="${doc.icon || 'fa-solid fa-file'} me-3 text-delve group-hover:text-white transition-colors"></i>
+                            ${doc.name}
+                        </a>
+                     `;
+                     docsContainer.innerHTML += docHTML;
+                 });
+             }
+        });
+    </script>
+</body>
+</html>
