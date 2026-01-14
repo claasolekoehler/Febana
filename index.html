@@ -494,9 +494,9 @@ documents: [
                 let statusIcon, statusBg, statusTextClass, pulseClass = '';
                 
                 if (item.status === 'completed') {
-                    statusBg = 'bg-delve';
+                    statusBg = 'bg-delve-light';
                     statusTextClass = 'text-delve opacity-80';
-                    statusIcon = '<i class="fa-solid fa-check text-white"></i>';
+                    statusIcon = '<i class="fa-solid fa-check text-delve"></i>';
                 } else if (item.status === 'active') {
                     statusBg = 'bg-delve';
                     statusTextClass = 'text-delve font-bold';
