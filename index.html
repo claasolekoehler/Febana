@@ -29,11 +29,30 @@
     </script>
 
     <style>
-        /* Marquee Animation */
-        .marquee-container { overflow: hidden; white-space: nowrap; position: relative; }
-        .marquee-content { display: inline-block; animation: marquee 40s linear infinite; }
-        .marquee-container:hover .marquee-content { animation-play-state: paused; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+/* Marquee Animation */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 100%; /* Container nimmt volle Breite der Seite */
+}
+
+.marquee-content {
+    display: flex; /* Besser als inline-block für Bild-Ausrichtung */
+    width: max-content; /* WICHTIG: Zwingt den Container zur vollen Breite aller Logos */
+    animation: marquee 40s linear infinite;
+}
+
+/* Der Container bewegt sich um exakt die Hälfte seiner Breite nach links */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Stoppt Animation beim Drüberfahren */
+.marquee-container:hover .marquee-content {
+    animation-play-state: paused;
+}
         
         /* Active Pulse Effect */
         .pulse-ring {
