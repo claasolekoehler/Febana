@@ -502,10 +502,20 @@ documents: [
                     statusTextClass = 'text-delve font-bold';
                     statusIcon = '<i class="fa-solid fa-play text-white text-sm"></i>';
                     pulseClass = 'pulse-ring'; 
-                } else {
+} else {
+                    // Status: Pending / Noch nicht erreicht
                     statusBg = 'bg-gray-200';
                     statusTextClass = 'text-delve-gray';
-                    statusIcon = `<span class="text-gray-400 text-sm font-bold">${item.id}</span>`;
+                    
+                    // PRÜFUNG: Ist dies das allerletzte Element der Liste?
+                    // (Index beginnt bei 0, daher length - 1)
+                    if (index === pageData.timeline.length - 1) {
+                        // Ja -> Zeige Flagge (Ziel)
+                        statusIcon = '<i class="fa-solid fa-flag text-gray-400"></i>';
+                    } else {
+                        // Nein -> Zeige normale Nummer (Zwischenschritt)
+                        statusIcon = `<span class="text-gray-400 text-sm font-bold">${item.id}</span>`;
+                    }
                 }
 
                 const timelineItemHTML = `
